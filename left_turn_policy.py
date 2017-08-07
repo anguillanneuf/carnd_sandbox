@@ -30,8 +30,8 @@ action_name = ['R', '#', 'L']
 grid = [[1, 1, 1, 0, 0, 0],
         [1, 1, 1, 0, 1, 0],
         [0, 0, 0, 0, 0, 0],
-        [0, 1, 1, 0, 1, 1],
-        [0, 0, 0, 0, 1, 1]]
+        [1, 1, 1, 0, 1, 1],
+        [1, 1, 1, 0, 1, 1]]
 
 init = [4, 3, 0]  # given in the form [row,col,direction]
 # direction = 0: up
@@ -39,7 +39,7 @@ init = [4, 3, 0]  # given in the form [row,col,direction]
 #             2: down
 #             3: right
 
-goal = [3, 0]  # given in the form [row,col]
+goal = [2, 0]  # given in the form [row,col]
 
 cost = [2, 1, 20]  # cost has 3 values, corresponding to making
 
@@ -84,6 +84,7 @@ def optimum_policy2D(grid, init, goal, cost):
 #			exhausted = True
 			
 		else:
+			open_ = open.copy()
 
 			open.sort()
 			open.reverse()
@@ -94,7 +95,7 @@ def optimum_policy2D(grid, init, goal, cost):
 			z = next[3]
 			g = next[0]
 			
-#			print("looking at {} from {}".format(next, open_))
+			print("looking at {} from {}".format(next, open_))
 			
 			if x==goal[0] and y==goal[1]:
 #				print("found")
@@ -121,7 +122,7 @@ def optimum_policy2D(grid, init, goal, cost):
 					
 					if x2 >= 0 and x2 < len(grid) and y2 >= 0 and y2 < len(grid[0]):
 						if (closed[x2][y2][z2] == 0 or closed[x2][y2][z2] > g2) and grid[x2][y2] == 0:
-#							print("[{},{},{}] to [{},{},{}] can be done".format(x,y,z,x2,y2,z2))
+							print("[{},{},{}] to [{},{},{}] can be done".format(x,y,z,x2,y2,z2))
 							open.append([g2, x2, y2, z2])
 							closed[x2][y2][z2] = g2
 							landed = [g, x, y, z, action_name[a], g2, x2, y2, z2]
